@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.poi:poi:5.2.2'
+    implementation 'org.apache.commons:commons-csv:1.9.0'
+    implementation 'org.apache.poi:poi-ooxml:5.2.2'
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes(
+                'Main-Class': 'org.example.Main'
+        )
+    }
+    from configurations.runtimeClasspath.collect { zipTree(it) }
+}
+
+test {
+    useJUnitPlatform()
+}
